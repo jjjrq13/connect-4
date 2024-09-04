@@ -16,25 +16,36 @@ II. greate a section called welcome-section
         * game rules 
         * Lets Play (Button)
 -->
-        <section id="welcome-section">
+        <section
+            style="visibility: visible"
+            id="welcome-section"
+            class="container"
+        >
             WELCOME
-            <img
-                id="main-logo"
-                src="./assets/Connect-4-Logo.svg"
-                alt="Connect 4 logo, white connect lettering with grey mid shadow & black background. large red 4 behind connect text with black background,yellow and red pieces on the sided,"
-            />
-            <div id="btn-div">
-                <button id="btn-game-rules">THE RULES</button>
-                <button id="btn-play">Let's Play</button>
+            <div class="container">
+                <img
+                    id="main-logo"
+                    src="./assets/Connect-4-Logo.svg"
+                    alt="Connect 4 logo, white connect lettering with grey mid shadow & black background. large red 4 behind connect text with black background,yellow and red pieces on the sided,"
+                />
             </div>
-            <div id="rules-explained" style="visibility: visible">
-                <h3>Setup</h3>
-                <p>
+
+            <div id="btn-div" class="container">
+                <button id="btn-game-rules" class="container">THE RULES</button>
+                <button id="btn-play" class="container">Let's Play</button>
+            </div>
+            <div
+                id="rules-explained"
+                style="visibility: inherit"
+                class="container"
+            >
+                <h3 class="container">Setup</h3>
+                <p class="container">
                     There is a 6-row, 7-column board. You have the option to
                     pick between a red piece or a yellow piece.
                 </p>
-                <h3>Objective</h3>
-                <p>
+                <h3 class="container">Objective</h3>
+                <p class="container">
                     Be the first to place your piece consecutively 4 times. You
                     can do it horizontally, vertically, or even diagonally. Pick
                     your piece, make your move! Let the best connect all!
@@ -42,6 +53,60 @@ II. greate a section called welcome-section
             </div>
         </section>
 
-        <section>PLAYER VS PLAYER</section>
+<!--  lets build the player vs player of our site 
+
+I. build out your containers
+II. player red & player yellow profile
+III. begin section with a message
+                
+-->
+
+        <section class="container" id="player-vs-player-section">
+            PLAYER VS PLAYER
+            <div class="container" id="pvp-profile-display">
+                <div
+                    class="player-profile"
+                    class="container"
+                    id="player-one-profile"
+                >
+                    <div class="conatiners">
+                        <img
+                            src="./assets/red-piece.svg"
+                            alt="Red connect 4 playing piece"
+                        />
+                    </div>
+                    <input
+                        id="player-one-name"
+                        type="text"
+                        placeholder="Player Red: Name"
+                    />
+                </div>
+                <div
+                    class="player-profile"
+                    class="container"
+                    id="player-two-profile"
+                >
+                    <div>
+                        <img
+                            class="container"
+                            src="./assets/yellow-piece.svg"
+                            alt="yellow connect 4 playing piece"
+                        />
+                    </div>
+                    <input
+                        id="player-two-name"
+                        type="text"
+                        placeholder="Player Yellow: Name"
+                    />
+                </div>
+            </div>
+            <p>Once you're both ready...</p>
+            <div class="conatiners">
+                <button id="begin-game">BEGIN</button>
+            </div>
+        </section>
+
+
+        </section>
     </body>
 </html>
