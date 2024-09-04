@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
 
-
 /* .container {
     border: 5px solid black;
     height: 100%;
-} */
+}  */
 
 body {
     margin: 8%;
@@ -16,7 +15,7 @@ body {
     font-family: 'Karla', sans-serif;
 }
 
-section{
+section {
     width: 100%;
 }
 
@@ -26,9 +25,8 @@ div {
     justify-content: center;
 }
 
-h3{
+h3 {
     margin: 0;
-
 }
 
 p {
@@ -37,19 +35,19 @@ p {
 
 /* WELCOME SECTION */
 #main-logo {
-max-height: 450px;
+    max-height: 450px;
 }
 
 #btn-div {
     padding: 3.236%;
     align-items: center;
-} 
+}
 
 #btn-game-rules {
     font-size: 1rem;
     padding-bottom: 3.236%;
     color: #876a36;
-    font-weight:800;
+    font-weight: 800;
     width: max-content;
     border: none;
     background-color: #ece2d0;
@@ -59,7 +57,7 @@ max-height: 450px;
     color: White;
 }
 
-#btn-play{
+#btn-play {
     color: #795f31;
     font-size: 1.5rem;
     border-radius: 6.472px;
@@ -70,7 +68,8 @@ max-height: 450px;
 }
 
 #btn-play:hover,
-#begin-game:hover {
+#begin-game:hover,
+#play-again-btn:hover {
     color: white;
     background-color: #d6c09a;
     border: 1px solid #ece2d0;
@@ -96,7 +95,6 @@ max-height: 450px;
     margin: 6.472%;
     margin-bottom: 0;
 }
-
 
 #pvp-profile-display {
     width: 100%;
@@ -132,3 +130,132 @@ max-height: 450px;
     margin: 3.236% auto;
 }
 
+/* game section*/
+#game-section {
+    margin-top: 8%;
+    display: flex;
+    flex-direction: column;
+}
+
+.display-and-board {
+    flex-direction: row;
+}
+
+#game-player-display {
+    width: 15%;
+    gap: 1rem;
+    justify-content: space-around;
+}
+
+.player-game-display {
+    border: 3.2px solid #d6c09a;
+    border-radius: 16.5px;
+    padding: 3.236%;
+    justify-content: space-evenly;
+    background-color: #5d2d25;
+}
+
+.player-game-display > div {
+    align-items: center;
+    background-color: #391b16;
+    border-radius: 16.5px;
+}
+
+.player-game-display img {
+    padding: 8%;
+    width: 92%;
+    height: auto;
+    align-self: center;
+}
+
+#player-yellow-name,
+#player-red-name {
+    font-size: 1rem;
+    text-align: center;
+    color: white;
+}
+
+.game-score {
+    height: 1rem;
+    padding: 0.25rem;
+    background-color: #d6c09a;
+    border: 5px solid #d6c09a;
+    border-radius: 10px;
+    color: white;
+    align-self: flex-end;
+    margin: 0.25rem;
+}
+
+#play-again-btn {
+    color: #795f31;
+    font-size: 1.5rem;
+    border-radius: 6.472px;
+    padding: 1.618%;
+    border: 1px solid #ece2d0;
+    visibility: hidden;
+}
+
+#the-board-spice-and-everything-nice {
+    width: 100%;
+}
+
+#above-board {
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #876a36;
+    margin-bottom: 3.236%;
+    border-radius: 8px;
+    padding-left: 10px;
+}
+
+#above-board img {
+    height: 45px;
+    padding: 10px;
+    width: auto;
+}
+
+#display-message {
+    font-size: 2rem;
+    color: #ece2d0;
+    font-weight: bolder;
+    text-align: center;
+}
+
+#board {
+    width: 560px;
+    padding: 20px;
+    border-radius: 50px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: auto auto;
+    background-color: #0057b7;
+}
+
+.circle {
+    height: 70px;
+    width: 70px;
+    border-radius: 70px;
+    background-color: lightgrey;
+    justify-content: center;
+    align-items: center;
+    color: transparent;
+}
+
+@media (min-width: 1200px) {
+    #board {
+        width: 1000px;
+        height: 100%;
+        padding: 30px;
+        gap: 30px;
+    }
+
+    .circle {
+        height: 105px;
+        width: 105px;
+    }
+}
+
+#A0 {
+
+}
