@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    background-color: #ece2d0;
+    font-family: 'Karla', sans-serif;
+}
+
+#welcome-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#main-logo {
+    height: auto;
+    margin-top: 10%;
+}
+
+#btn-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn-game-rules {
+    color: #876a36;
+    font-weight: 900;
+    font-size: 1rem;
+    width: max-content;
+    margin: 2rem;
+    border: none;
+    background-color: #ece2d0;
+}
+
+#btn-game-rules:hover {
+    color: White;
+}
+
+#btn-play {
+    color: #795f31;
+    font-size: 2rem;
+    margin: 0.5rem;
+    padding: 1.618%;
+    border-radius: 6.8px;
+    border: 1px solid #ece2d0;
+    width: 33%;
+}
+
+#btn-play:hover {
+    color: white;
+    background-color: #d6c09a;
+    border: 1px solid #ece2d0;
+}
+
+#rules-explained {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0%;
+}

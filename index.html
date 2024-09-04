@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Connect Four</title>
+        <link rel="stylesheet" href="./css/style.css" />
+        <script defer src="./js/app.js"></script>
+    </head>
+    <body>
+        <!--  Lets make the lets-play-section of our site
+I. Flexbox style for the entire site. 
+II. greate a section called welcome-section
+    * 3 conatiners 
+        * Logo (Image)
+        * game rules 
+        * Lets Play (Button)
+-->
+        <section id="welcome-section">
+            <img
+                id="main-logo"
+                src="./assets/Connect-4-Logo.svg"
+                alt="Connect 4 logo, white connect lettering with grey mid shadow & black background. large red 4 behind connect text with black background,yellow and red pieces on the sided,"
+            />
+            <div id="btn-div">
+                <button id="btn-game-rules">THE RULES</button>
+                <button id="btn-play">Let's Play</button>
+            </div>
+            <div id="rules-explained" style="visibility: hidden">
+                <h3>SETUP</h3>
+                <p>
+                    There is a 6 row, 7 column board. You have the option to
+                    pick between a red piece & a yellow piece
+                </p>
+                <h3>Objective</h3>
+                <p>
+                    Be the first to place your piece consecutively. You can do
+                    it horizontally, vertically or even diagnoly.
+                </p>
+                <p>
+                    Pick your poison, make your move! Let the best connect all!
+                </p>
+            </div>
+        </section>
+    </body>
+</html>
