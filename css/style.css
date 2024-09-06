@@ -198,9 +198,7 @@ p {
     border: 1px solid #ece2d0;
 }
 
-#the-board-spice-and-everything-nice {
-    width: 100%;
-}
+
 
 #above-board {
     flex-direction: row;
@@ -229,12 +227,13 @@ p {
 
 #board {
     width: 560px;
+    height: 470px;
     padding: 20px;
     border-radius: 50px;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap:wrap-reverse;
     gap: 10px;
-    margin: auto auto;
+    /* margin: auto auto; */
     background-color: #0057b7;
     
 }
@@ -246,7 +245,7 @@ p {
     background-color: lightgrey;
     justify-content: center;
     align-items: center;
-    color: transparent;
+    color: black;
 }
 
 
@@ -268,6 +267,7 @@ p {
 
 /* !-------------------------- IMPORTANT -------------------------- */
 
-/* .hidden {
+.hidden {
     display:none !important;
-} */
+}
+
