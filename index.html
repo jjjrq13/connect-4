@@ -16,11 +16,7 @@ II. greate a section called welcome-section
         * game rules 
         * Lets Play (Button)
 -->
-        <section
-            style="visibility: visible"
-            id="welcome-section"
-            class="container"
-        >
+        <section id="welcome-section" class="container">
             WELCOME
             <div class="container">
                 <img
@@ -34,11 +30,7 @@ II. greate a section called welcome-section
                 <button id="btn-game-rules" class="container">THE RULES</button>
                 <button id="btn-play" class="container">Let's Play</button>
             </div>
-            <div
-                id="rules-explained"
-                style="visibility: inherit"
-                class="container"
-            >
+            <div id="rules-explained" class="container hidden">
                 <h3 class="container">Setup</h3>
                 <p class="container">
                     There is a 6-row, 7-column board. You have the option to
@@ -61,7 +53,7 @@ III. begin section with a message
                 
 -->
 
-        <section class="container" id="player-vs-player-section">
+        <section class="container hidden" id="player-vs-player-section">
             PLAYER VS PLAYER
             <div class="container" id="pvp-profile-display">
                 <div
@@ -115,10 +107,10 @@ III. begin section with a message
             board, message, play again button, & game logo
                 2 sets of conatiners 
     -->
-        <section id="game-section" class="container">
+        <section id="game-section" class="container hidden">
             <div id="above-board">
                 <div>
-                    <p id="display-message">Ashleys turn</p>
+                    <p id="display-message"></p>
                 </div>
 
                 <div>
@@ -135,13 +127,13 @@ III. begin section with a message
                                     alt="red connect 4 playing piece"
                                 />
                                 <div class="game-score">
-                                    <h4 id="player-red-score">00</h4>
+                                    <h4 id="player-red-score">0</h4>
                                 </div>
                             </div>
                         </div>
-                        <h4 id="player-red-name">Ashley</h4>
+                        <h4 id="player-red-name"></h4>
                     </div>
-    
+
                     <div class="player-game-display" id="game-profile-yellow">
                         <div class="container">
                             <div>
@@ -150,19 +142,21 @@ III. begin section with a message
                                     alt="yellow connect 4 playing piece"
                                 />
                                 <div class="game-score">
-                                    <h4 id="player-yellow-score">00</h4>
+                                    <h4 id="player-yellow-score">0</h4>
                                 </div>
                             </div>
                         </div>
-                        <h4 id="player-yellow-name">Jonathan</h4>
+                        <h4 id="player-yellow-name"></h4>
                     </div>
                     <div>
-                        <button id="play-again-btn">Play Again</button>
+                        <button id="play-again-btn" class="hidden">
+                            Play Again
+                        </button>
                     </div>
                 </div>
                 <div id="the-board-spice-and-everything-nice" class="container">
                     <div id="board">
-                        <div class="circle" class="column-a" id="A5"><img src="./assets/red-piece.svg" alt=""></div>
+                        <div class="circle" class="column-a" id="A5"></div>
                         <div class="circle" class="column-b" id="B5">2</div>
                         <div class="circle" class="column-c" id="C5">3</div>
                         <div class="circle" class="column-d" id="D5">4</div>
@@ -207,8 +201,6 @@ III. begin section with a message
                     </div>
                 </div>
             </div>
-
-            
         </section>
     </body>
 </html>
