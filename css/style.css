@@ -33,7 +33,6 @@ p {
     margin: 0;
 }
 
-
 /* *-------------------------- WELCOME SECTION -------------------------- */
 #main-logo {
     max-height: 450px;
@@ -84,6 +83,7 @@ p {
     margin: 1.618%;
     justify-content: flex-start;
 }
+
 #rules-explained > p {
     width: 50%;
     text-align: justify;
@@ -189,7 +189,7 @@ p {
     background-color: #d6c09a;
     border: 5px solid #d6c09a;
     border-radius: 10px;
-    color: #7B0323 ;
+    color: #7b0323;
     align-self: flex-end;
     margin: 0.25rem;
 }
@@ -201,8 +201,6 @@ p {
     padding: 1.618%;
     border: 1px solid #ece2d0;
 }
-
-
 
 #above-board {
     flex-direction: row;
@@ -237,11 +235,10 @@ p {
     padding: 20px;
     border-radius: 50px;
     flex-direction: row;
-    flex-wrap:wrap-reverse;
+    flex-wrap: wrap-reverse;
     gap: 10px;
     /* margin: auto auto; */
     background-color: #0057b7;
-    
 }
 
 .circle {
@@ -254,27 +251,10 @@ p {
     color: black;
 }
 
-
-
-
-/* @media (min-width: 1200px) {
-    #board {
-        width: 1000px;
-        height: 100%;
-        padding: 30px;
-        gap: 30px;
-    }
-
-    .circle {
-        height: 105px;
-        width: 105px;
-    }
-} */
-
 /* !-------------------------- IMPORTANT -------------------------- */
 
 .hidden {
-    display:none !important;
+    display: none !important;
 }
 
 .preventClick {

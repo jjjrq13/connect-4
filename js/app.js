@@ -1,8 +1,32 @@
-/*
-Lets set up our hidden button class thingy thing!
-*/
+//*------------------------ EVENT LISTNERS ------------------------
 
-//------------------------ CONST ------------------------
+allButtons.forEach((btn) => {
+    switch (btn.id) {
+        case 'btn-game-rules':
+            btn.addEventListener('click', gameRulesToggle);
+            break;
+        case 'btn-play':
+            btn.addEventListener('click', letsPlay);
+            break;
+        case 'begin-game':
+            btn.addEventListener('click', beginGame);
+            break;
+        case 'play-again-btn':
+            btn.addEventListener('click', playAgainButton);
+            break;
+    }
+});
+
+domBoard.forEach((column) => {
+    column.forEach((row) => {
+        row.addEventListener('click', assignPiece);
+    });
+});
+
+document.querySelector('#main-logo').addEventListener('click', backgroundMusic);
+document.querySelector('#tiny-logo').addEventListener('click', backgroundMusic);
+
+//*------------------------ CONST ------------------------
 
 const allSections = document.querySelectorAll('section');
 console.log(allSections);
@@ -22,8 +46,6 @@ const domBoard = [
 ];
 
 const displayID = document.querySelector('#display-message');
-
-// const redScore = document.querySelector(#)
 
 const gameBoard = {
     A: [0, 0, 0, 0, 0, 0],
@@ -45,17 +67,7 @@ const gameBoard = {
 //     G: ['g0', 'g1', 'g2', 'g3', 'g4', 'g5'],
 // };
 
-// const gameBoard = {
-//     A: [1, 2, 0, 0, 0, 0],
-//     B: ['b0', 'b1', 'b2', 'b3', 'b4', 'b5'],
-//     C: ['c0', 'c1', 'c2', 'c3', 'c4', 'c5'],
-//     D: ['d0', 'd1', 'd2', 'd3', 'd4', 'd5'],
-//     E: ['e0', 'e1', 'e2', 'e3', 'e4', 'e5'],
-//     F: ['f0', 'f1', 'f2', 'f3', 'f4', 'f5'],
-//     G: ['g0', 'g1', 'g2', 'g3', 'g4', 'g5'],
-// };
-
-//------------------------ LET ------------------------
+//*------------------------ LET ------------------------
 
 let playerOneName = 'Red';
 let playerTwoName = 'Yellow';
@@ -66,10 +78,41 @@ let yellowScore = 0;
 let currentPlayer;
 let movesLeft = 42;
 let weHaveAWinner = false;
+let soundOn = false;
 
-//------------------------ FUNCTIONS ------------------------
+//*------------------------ FUNCTIONS ------------------------
 
-//delete images
+// ------------------------ Sound ------------------------
+const playSoundEffect = () => {
+    let sound = document.querySelector('#music');
+    console.log(sound);
+    sound.play();
+};
+
+const backgroundMusic = () => {
+    let sound = document.querySelector('#background-music');
+    console.log(sound);
+    console.log(sound.muted);
+    if (soundOn) {
+        console.log('Sound On True');
+        sound.muted = true;
+        soundOn = false;
+    } else {
+        console.log('Sound On false');
+        sound.play();
+        sound.muted = false;
+        soundOn = true;
+    }
+};
+
+const winningSoundEffect = () => {
+    let sound = document.querySelector('#winner-sound');
+    console.log(sound);
+    sound.play();
+};
+
+// ------------------------ Reset Game ------------------------
+
 const removePiecesFromBoard = () => {
     let circles = document.querySelectorAll('.circle');
     for (let i = 0; i < circles.length; i++) {
@@ -80,10 +123,8 @@ const removePiecesFromBoard = () => {
     }
 };
 
-//prevent click on board, display winner, unhide buttun
 const noMoreClicks = () => {
     let boardClass = document.querySelector('#board').classList;
-
     if (boardClass.contains('preventClick')) {
         boardClass.remove('preventClick');
     } else {
@@ -91,12 +132,22 @@ const noMoreClicks = () => {
     }
 };
 
-//display message function
+const resetGameBoard = () => {
+    let column = Object.keys(gameBoard);
+    for (let c = 0; c < column.length; c++) {
+        console.log(gameBoard[column[c]]);
+        for (let r = 0; r < gameBoard[column[c]].length; r++) {
+            gameBoard[column[c]][r] = 0;
+        }
+    }
+};
+
+// ------------------------ Display Functions ------------------------
+
 const displayMessage = (element) => {
     displayID.textContent = `${element}`;
 };
 
-//player name function
 const playerNameTrue = () => {
     if (nameInputs[0].value && nameInputs[1].value) {
         document.querySelector(
@@ -122,19 +173,31 @@ const playerNameTrue = () => {
     }
 };
 
-//reset gameBoard
-const resetGameBoard = () => {
-    let column = Object.keys(gameBoard);
-
-    for (let c = 0; c < column.length; c++) {
-        console.log(gameBoard[column[c]]);
-        for (let r = 0; r < gameBoard[column[c]].length; r++) {
-            gameBoard[column[c]][r] = 0;
-        }
-    }
+const updatePlayerScore = () => {
+    document.querySelector('#player-yellow-score').textContent = yellowScore;
+    document.querySelector('#player-red-score').textContent = redScore;
 };
 
-//button functions
+const whoWillStartIsTheQuestion = () => {
+    let random = Math.round(Math.random());
+    if (playerOneName && playerTwoName) {
+        let start = [playerOneName, playerTwoName];
+        currentPlayer = start[random];
+    }
+    console.log(currentPlayer);
+    displayMessage(`${currentPlayer} you will start the game!`);
+};
+
+const whoPlaysNextIsTheQuestion = () => {
+    let random = Math.round(Math.random());
+    let start = [playerOneName, playerTwoName];
+    currentPlayer = start[random];
+    console.log(currentPlayer);
+    displayMessage(`Fate has picked you ${currentPlayer}, Begin!`);
+};
+
+// ------------------------ Button Functions ------------------------
+
 const gameRulesToggle = () => {
     let rules = document.querySelector('#rules-explained').classList;
 
@@ -174,9 +237,6 @@ const playAgainButton = () => {
         console.log(
             `Inside of tie, before calling noClick ${allButtons[3].classList}`,
         );
-        // noMoreClicks();
-        // console.log(`Inside of tie, After calling noClick ${boardClass.classList}`);
-        // console.log(boardClass.classList);
         allButtons[3].classList.add('hidden');
     } else {
         resetGameBoard();
@@ -191,27 +251,7 @@ const playAgainButton = () => {
     }
 };
 
-//game functions
-const whoWillStartIsTheQuestion = () => {
-    let random = Math.round(Math.random());
-    if (playerOneName && playerTwoName) {
-        let start = [playerOneName, playerTwoName];
-        currentPlayer = start[random];
-    }
-    console.log(currentPlayer);
-    displayMessage(`${currentPlayer} you will start the game!`);
-};
-
-const whoPlaysNextIsTheQuestion = () => {
-    let random = Math.round(Math.random());
-    let start = [playerOneName, playerTwoName];
-    currentPlayer = start[random];
-    console.log(currentPlayer);
-    displayMessage(`Fate has picked you ${currentPlayer}, Begin!`);
-};
-
-// let audio = new Audio('./assets/water-drop.mp3'); // Replace with your actual audio path
-// audio.play();
+// ------------------------ Game Functions ------------------------
 
 const assignPiece = (event) => {
     let column = event.target.id[0];
@@ -219,7 +259,6 @@ const assignPiece = (event) => {
     let row = gameBoard[column].indexOf(0);
     let img = document.createElement('img');
     let id = document.querySelector(`#${column}${row}`);
-
     if (currentPlayer === playerOneName) {
         gameBoard[column][row] = 'R';
         img.setAttribute('src', './assets/red-piece.svg');
@@ -239,19 +278,27 @@ const assignPiece = (event) => {
         playSoundEffect();
         next();
     }
-
     checkForTie();
 };
 
-//update player score
-const updatePlayerScore = () => {
-    document.querySelector('#player-yellow-score').textContent = yellowScore;
-    document.querySelector('#player-red-score').textContent = redScore;
+const next = () => {
+    if (currentPlayer === playerOneName) {
+        currentPlayer = playerTwoName;
+        displayMessage(`${playerTwoName}, your turn!`);
+        checkForWinner();
+        movesLeft--;
+        console.log(movesLeft);
+    } else {
+        currentPlayer = playerOneName;
+        displayMessage(`${playerOneName}, your turn!`);
+        checkForWinner();
+        movesLeft--;
+        console.log(movesLeft);
+    }
 };
 
 const checkForWinner = () => {
     let column = Object.keys(gameBoard);
-
     //vertical win
     for (let c = 0; c < column.length; c++) {
         for (let r = 0; r < 3; r++) {
@@ -262,6 +309,7 @@ const checkForWinner = () => {
                 gameBoard[column[c]][r + 3],
             ];
             if (winner.every((element) => element === 'R')) {
+                winningSoundEffect();
                 weHaveAWinner = playerOneName;
                 redScore++;
                 noMoreClicks();
@@ -269,6 +317,7 @@ const checkForWinner = () => {
                 allButtons[3].classList.remove('hidden');
                 break;
             } else if (winner.every((element) => element === 'Y')) {
+                winningSoundEffect();
                 weHaveAWinner = playerTwoName;
                 yellowScore++;
                 noMoreClicks();
@@ -278,7 +327,6 @@ const checkForWinner = () => {
             }
         }
     }
-
     //Horizontal win
     for (let r = 0; r < 6; r++) {
         for (let i = 0; i < 4; i++) {
@@ -289,6 +337,7 @@ const checkForWinner = () => {
                 gameBoard[column[i + 3]][r],
             ];
             if (winner.every((element) => element === 'R')) {
+                winningSoundEffect();
                 weHaveAWinner = playerOneName;
                 redScore++;
                 noMoreClicks();
@@ -296,6 +345,7 @@ const checkForWinner = () => {
                 allButtons[3].classList.remove('hidden');
                 break;
             } else if (winner.every((element) => element === 'Y')) {
+                winningSoundEffect();
                 weHaveAWinner = playerTwoName;
                 yellowScore++;
                 noMoreClicks();
@@ -305,8 +355,7 @@ const checkForWinner = () => {
             }
         }
     }
-
-    //diagnol wins
+    //diagnol wins (R-L)
     for (let c = 0; c < 4; c++) {
         for (let r = 0; r < 3; r++) {
             let winner = [
@@ -316,6 +365,7 @@ const checkForWinner = () => {
                 gameBoard[column[c + 3]][r + 3],
             ];
             if (winner.every((element) => element === 'R')) {
+                winningSoundEffect();
                 weHaveAWinner = playerOneName;
                 redScore++;
                 noMoreClicks();
@@ -323,6 +373,7 @@ const checkForWinner = () => {
                 allButtons[3].classList.remove('hidden');
                 break;
             } else if (winner.every((element) => element === 'Y')) {
+                winningSoundEffect();
                 weHaveAWinner = playerTwoName;
                 noMoreClicks();
                 displayMessage(`${weHaveAWinner} has won this round!`);
@@ -332,7 +383,7 @@ const checkForWinner = () => {
             }
         }
     }
-
+    //diagnol wins (L-R)
     for (let c = 0; c < 4; c++) {
         for (let r = 5; r > 2; r--) {
             let winner = [
@@ -342,6 +393,7 @@ const checkForWinner = () => {
                 gameBoard[column[c + 3]][r - 3],
             ];
             if (winner.every((element) => element === 'R')) {
+                winningSoundEffect();
                 weHaveAWinner = playerOneName;
                 redScore++;
                 noMoreClicks();
@@ -349,6 +401,7 @@ const checkForWinner = () => {
                 allButtons[3].classList.remove('hidden');
                 break;
             } else if (winner.every((element) => element === 'Y')) {
+                winningSoundEffect();
                 weHaveAWinner = playerTwoName;
                 yellowScore++;
                 noMoreClicks();
@@ -368,64 +421,7 @@ const checkForTie = () => {
     }
 };
 
-const next = () => {
-    if (currentPlayer === playerOneName) {
-        currentPlayer = playerTwoName;
-        displayMessage(`${playerTwoName}, your turn!`);
-        checkForWinner();
-        movesLeft--;
-        console.log(movesLeft);
-    } else {
-        currentPlayer = playerOneName;
-        displayMessage(`${playerOneName}, your turn!`);
-        checkForWinner();
-        movesLeft--;
-        console.log(movesLeft);
-    }
-};
+// !------------------------ Build Functions ------------------------
+//?                 My Little Work Station Over Here!
 
-//!----------------------------------------
-//build functions & test
-const playSoundEffect = () => {
-    let sound = document.querySelector('#music');
-    console.log(sound);
-    sound.play();
-};
-
-// playSoundEffect();
-
-const backgroundMusic = () => {
-    let sound = document.querySelector('#background-music');
-    console.log(sound);
-    sound.play();
-};
-
-backgroundMusic();
-//!----------------------------------------
-
-//------------------------ EVENT LISTNERS ------------------------
-
-allButtons.forEach((btn) => {
-    switch (btn.id) {
-        case 'btn-game-rules':
-            btn.addEventListener('click', gameRulesToggle);
-            break;
-        case 'btn-play':
-            btn.addEventListener('click', letsPlay);
-            break;
-        case 'begin-game':
-            btn.addEventListener('click', beginGame);
-            break;
-        case 'play-again-btn':
-            btn.addEventListener('click', playAgainButton);
-            break;
-    }
-});
-
-domBoard.forEach((column) => {
-    column.forEach((row) => {
-        row.addEventListener('click', assignPiece);
-    });
-});
-
-//------------------------ GAME CODE ------------------------
+// !------------------------ Build Functions ------------------------
