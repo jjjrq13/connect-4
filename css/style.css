@@ -189,7 +189,7 @@ p {
     background-color: #d6c09a;
     border: 5px solid #d6c09a;
     border-radius: 10px;
-    color: white;
+    color: #7B0323 ;
     align-self: flex-end;
     margin: 0.25rem;
 }
@@ -279,4 +279,8 @@ p {
 
 .preventClick {
     pointer-events: none;
+}
+
+.music {
+    visibility: hidden;
 }

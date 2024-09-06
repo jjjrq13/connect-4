@@ -171,7 +171,9 @@ const playAgainButton = () => {
         weHaveAWinner = false;
         movesLeft = 42;
         updatePlayerScore();
-        console.log(`Inside of tie, before calling noClick ${allButtons[3].classList}`);
+        console.log(
+            `Inside of tie, before calling noClick ${allButtons[3].classList}`,
+        );
         // noMoreClicks();
         // console.log(`Inside of tie, After calling noClick ${boardClass.classList}`);
         // console.log(boardClass.classList);
@@ -206,8 +208,10 @@ const whoPlaysNextIsTheQuestion = () => {
     currentPlayer = start[random];
     console.log(currentPlayer);
     displayMessage(`Fate has picked you ${currentPlayer}, Begin!`);
-
 };
+
+// let audio = new Audio('./assets/water-drop.mp3'); // Replace with your actual audio path
+// audio.play();
 
 const assignPiece = (event) => {
     let column = event.target.id[0];
@@ -223,6 +227,7 @@ const assignPiece = (event) => {
         img.setAttribute('id', `${column}${row}-img`);
         id.appendChild(img);
         id.style = 'background-color: transparent';
+        playSoundEffect();
         next();
     } else {
         gameBoard[column][row] = 'Y';
@@ -231,6 +236,7 @@ const assignPiece = (event) => {
         img.setAttribute('id', `${column}${row}-img`);
         id.appendChild(img);
         id.style = 'background-color: transparent';
+        playSoundEffect();
         next();
     }
 
@@ -380,7 +386,21 @@ const next = () => {
 
 //!----------------------------------------
 //build functions & test
+const playSoundEffect = () => {
+    let sound = document.querySelector('#music');
+    console.log(sound);
+    sound.play();
+};
 
+// playSoundEffect();
+
+const backgroundMusic = () => {
+    let sound = document.querySelector('#background-music');
+    console.log(sound);
+    sound.play();
+};
+
+backgroundMusic();
 //!----------------------------------------
 
 //------------------------ EVENT LISTNERS ------------------------
