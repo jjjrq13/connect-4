@@ -266,8 +266,11 @@ p {
 } */
 
 /* !-------------------------- IMPORTANT -------------------------- */
-
+/* 
 .hidden {
     display:none !important;
-}
+} */
 
+.preventClick {
+    pointer-events: none;
+}
