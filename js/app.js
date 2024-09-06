@@ -1,30 +1,3 @@
-//*------------------------ EVENT LISTNERS ------------------------
-
-allButtons.forEach((btn) => {
-    switch (btn.id) {
-        case 'btn-game-rules':
-            btn.addEventListener('click', gameRulesToggle);
-            break;
-        case 'btn-play':
-            btn.addEventListener('click', letsPlay);
-            break;
-        case 'begin-game':
-            btn.addEventListener('click', beginGame);
-            break;
-        case 'play-again-btn':
-            btn.addEventListener('click', playAgainButton);
-            break;
-    }
-});
-
-domBoard.forEach((column) => {
-    column.forEach((row) => {
-        row.addEventListener('click', assignPiece);
-    });
-});
-
-document.querySelector('#main-logo').addEventListener('click', backgroundMusic);
-document.querySelector('#tiny-logo').addEventListener('click', backgroundMusic);
 
 //*------------------------ CONST ------------------------
 
@@ -424,4 +397,33 @@ const checkForTie = () => {
 // !------------------------ Build Functions ------------------------
 //?                 My Little Work Station Over Here!
 
+
 // !------------------------ Build Functions ------------------------
+
+//*------------------------ EVENT LISTNERS ------------------------
+
+allButtons.forEach((btn) => {
+    switch (btn.id) {
+        case 'btn-game-rules':
+            btn.addEventListener('click', gameRulesToggle);
+            break;
+        case 'btn-play':
+            btn.addEventListener('click', letsPlay);
+            break;
+        case 'begin-game':
+            btn.addEventListener('click', beginGame);
+            break;
+        case 'play-again-btn':
+            btn.addEventListener('click', playAgainButton);
+            break;
+    }
+});
+
+domBoard.forEach((column) => {
+    column.forEach((row) => {
+        row.addEventListener('click', assignPiece);
+    });
+});
+
+document.querySelector('#main-logo').addEventListener('click', backgroundMusic);
+document.querySelector('#tiny-logo').addEventListener('click', backgroundMusic);
