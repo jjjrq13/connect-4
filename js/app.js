@@ -21,27 +21,29 @@ const domBoard = [
     document.querySelectorAll('.column-G'),
 ];
 
+const displayID = document.querySelector('#display-message');
+
 // const redScore = document.querySelector(#)
 
-// const gameBoard = {
-//     A: [0, 0, 0, 0, 0, 0],
-//     B: [0, 0, 0, 0, 0, 0],
-//     C: [0, 0, 0, 0, 0, 0],
-//     D: [0, 0, 0, 0, 0, 0],
-//     E: [0, 0, 0, 0, 0, 0],
-//     F: [0, 0, 0, 0, 0, 0],
-//     G: [0, 0, 0, 0, 0, 0],
-// };
-
 const gameBoard = {
-    A: ['a0', 'a1', 'a2', 'a3', 'a4', 'a5'],
-    B: ['b0', 'b1', 'b2', 'b3', 'b4', 'b5'],
-    C: ['c0', 'c1', 'c2', 'c3', 'c4', 'c5'],
-    D: ['d0', 'd1', 'd2', 'd3', 'd4', 'd5'],
-    E: ['e0', 'e1', 'e2', 'e3', 'e4', 'e5'],
-    F: ['f0', 'f1', 'f2', 'f3', 'f4', 'f5'],
-    G: ['g0', 'g1', 'g2', 'g3', 'g4', 'g5'],
+    A: [0, 0, 0, 0, 0, 0],
+    B: [0, 0, 0, 0, 0, 0],
+    C: [0, 0, 0, 0, 0, 0],
+    D: [0, 0, 0, 0, 0, 0],
+    E: [0, 0, 0, 0, 0, 0],
+    F: [0, 0, 0, 0, 0, 0],
+    G: [0, 0, 0, 0, 0, 0],
 };
+
+// const gameBoard = {
+//     A: ['a0', 'a1', 'a2', 'a3', 'a4', 'a5'],
+//     B: ['b0', 'b1', 'b2', 'b3', 'b4', 'b5'],
+//     C: ['c0', 'c1', 'c2', 'c3', 'c4', 'c5'],
+//     D: ['d0', 'd1', 'd2', 'd3', 'd4', 'd5'],
+//     E: ['e0', 'e1', 'e2', 'e3', 'e4', 'e5'],
+//     F: ['f0', 'f1', 'f2', 'f3', 'f4', 'f5'],
+//     G: ['g0', 'g1', 'g2', 'g3', 'g4', 'g5'],
+// };
 
 // const gameBoard = {
 //     A: [1, 2, 0, 0, 0, 0],
@@ -58,10 +60,11 @@ const gameBoard = {
 let playerOneName = 'Red';
 let playerTwoName = 'Yellow';
 
-let redScore;
-let yellowScore;
+let redScore = 0;
+let yellowScore = 0;
 
 let currentPlayer;
+let movesLeft = 42;
 let weHaveAWinner = false;
 
 //------------------------ FUNCTIONS ------------------------
@@ -79,18 +82,18 @@ const removePiecesFromBoard = () => {
 
 //prevent click on board, display winner, unhide buttun
 const noMoreClicks = () => {
-    if (document.querySelector('#board').classList.contains('preventClick')) {
-        document.querySelector('#board').classList.remove('preventClick');
+    let boardClass = document.querySelector('#board').classList;
+
+    if (boardClass.contains('preventClick')) {
+        boardClass.remove('preventClick');
     } else {
-        document.querySelector('#board').classList.add('preventClick');
-        displayMessage(`${weHaveAWinner} has won this round!`);
-        allButtons[3].classList.remove('hidden');
+        boardClass.add('preventClick');
     }
 };
 
 //display message function
 const displayMessage = (element) => {
-    document.querySelector('#display-message').textContent = `${element}`;
+    displayID.textContent = `${element}`;
 };
 
 //player name function
@@ -116,6 +119,18 @@ const playerNameTrue = () => {
             }
             return false;
         });
+    }
+};
+
+//reset gameBoard
+const resetGameBoard = () => {
+    let column = Object.keys(gameBoard);
+
+    for (let c = 0; c < column.length; c++) {
+        console.log(gameBoard[column[c]]);
+        for (let r = 0; r < gameBoard[column[c]].length; r++) {
+            gameBoard[column[c]][r] = 0;
+        }
     }
 };
 
@@ -148,19 +163,30 @@ const beginGame = () => {
 };
 
 const playAgainButton = () => {
-    let column = Object.keys(gameBoard);
-
-    for (let c = 0; c < column.length; c++) {
-        console.log(gameBoard[column[c]]);
-        for (let r = 0; r < gameBoard[column[c]].length; r++) {
-            gameBoard[column[c]][r] = 0;
-        }
+    if (displayID.textContent.includes('tie')) {
+        console.log('there was a tie, im in function');
+        whoPlaysNextIsTheQuestion();
+        resetGameBoard();
+        removePiecesFromBoard();
+        weHaveAWinner = false;
+        movesLeft = 42;
+        updatePlayerScore();
+        console.log(`Inside of tie, before calling noClick ${allButtons[3].classList}`);
+        // noMoreClicks();
+        // console.log(`Inside of tie, After calling noClick ${boardClass.classList}`);
+        // console.log(boardClass.classList);
+        allButtons[3].classList.add('hidden');
+    } else {
+        resetGameBoard();
+        removePiecesFromBoard();
+        currentPlayer = weHaveAWinner;
+        weHaveAWinner = false;
+        movesLeft = 42;
+        updatePlayerScore();
+        displayMessage(`Winner goes first, your move ${currentPlayer}`);
+        noMoreClicks();
+        allButtons[3].classList.add('hidden');
     }
-
-    noMoreClicks();
-    removePiecesFromBoard();
-    weHaveAWinner = false;
-    allButtons[3].classList.add('hidden');
 };
 
 //game functions
@@ -174,18 +200,13 @@ const whoWillStartIsTheQuestion = () => {
     displayMessage(`${currentPlayer} you will start the game!`);
 };
 
-const next = () => {
-    if (currentPlayer === playerOneName) {
-        currentPlayer = playerTwoName;
-        checkForWinner();
-        weHaveAWinner = 'empty';
-        console.log(weHaveAWinner);
-    } else {
-        currentPlayer = playerOneName;
-        checkForWinner();
-        weHaveAWinner = 'empty';
-        console.log(weHaveAWinner);
-    }
+const whoPlaysNextIsTheQuestion = () => {
+    let random = Math.round(Math.random());
+    let start = [playerOneName, playerTwoName];
+    currentPlayer = start[random];
+    console.log(currentPlayer);
+    displayMessage(`Fate has picked you ${currentPlayer}, Begin!`);
+
 };
 
 const assignPiece = (event) => {
@@ -212,11 +233,18 @@ const assignPiece = (event) => {
         id.style = 'background-color: transparent';
         next();
     }
+
+    checkForTie();
+};
+
+//update player score
+const updatePlayerScore = () => {
+    document.querySelector('#player-yellow-score').textContent = yellowScore;
+    document.querySelector('#player-red-score').textContent = redScore;
 };
 
 const checkForWinner = () => {
     let column = Object.keys(gameBoard);
-    console.log(column);
 
     //vertical win
     for (let c = 0; c < column.length; c++) {
@@ -229,17 +257,23 @@ const checkForWinner = () => {
             ];
             if (winner.every((element) => element === 'R')) {
                 weHaveAWinner = playerOneName;
+                redScore++;
                 noMoreClicks();
+                displayMessage(`${weHaveAWinner} has won this round!`);
+                allButtons[3].classList.remove('hidden');
                 break;
             } else if (winner.every((element) => element === 'Y')) {
                 weHaveAWinner = playerTwoName;
+                yellowScore++;
                 noMoreClicks();
+                displayMessage(`${weHaveAWinner} has won this round!`);
+                allButtons[3].classList.remove('hidden');
                 break;
             }
         }
     }
 
-//Horizontal win
+    //Horizontal win
     for (let r = 0; r < 6; r++) {
         for (let i = 0; i < 4; i++) {
             let winner = [
@@ -250,21 +284,102 @@ const checkForWinner = () => {
             ];
             if (winner.every((element) => element === 'R')) {
                 weHaveAWinner = playerOneName;
+                redScore++;
                 noMoreClicks();
+                displayMessage(`${weHaveAWinner} has won this round!`);
+                allButtons[3].classList.remove('hidden');
+                break;
+            } else if (winner.every((element) => element === 'Y')) {
+                weHaveAWinner = playerTwoName;
+                yellowScore++;
+                noMoreClicks();
+                displayMessage(`${weHaveAWinner} has won this round!`);
+                allButtons[3].classList.remove('hidden');
+                break;
+            }
+        }
+    }
+
+    //diagnol wins
+    for (let c = 0; c < 4; c++) {
+        for (let r = 0; r < 3; r++) {
+            let winner = [
+                gameBoard[column[c]][r],
+                gameBoard[column[c + 1]][r + 1],
+                gameBoard[column[c + 2]][r + 2],
+                gameBoard[column[c + 3]][r + 3],
+            ];
+            if (winner.every((element) => element === 'R')) {
+                weHaveAWinner = playerOneName;
+                redScore++;
+                noMoreClicks();
+                displayMessage(`${weHaveAWinner} has won this round!`);
+                allButtons[3].classList.remove('hidden');
                 break;
             } else if (winner.every((element) => element === 'Y')) {
                 weHaveAWinner = playerTwoName;
                 noMoreClicks();
+                displayMessage(`${weHaveAWinner} has won this round!`);
+                allButtons[3].classList.remove('hidden');
+                yellowScore++;
+                break;
+            }
+        }
+    }
+
+    for (let c = 0; c < 4; c++) {
+        for (let r = 5; r > 2; r--) {
+            let winner = [
+                gameBoard[column[c]][r],
+                gameBoard[column[c + 1]][r - 1],
+                gameBoard[column[c + 2]][r - 2],
+                gameBoard[column[c + 3]][r - 3],
+            ];
+            if (winner.every((element) => element === 'R')) {
+                weHaveAWinner = playerOneName;
+                redScore++;
+                noMoreClicks();
+                displayMessage(`${weHaveAWinner} has won this round!`);
+                allButtons[3].classList.remove('hidden');
+                break;
+            } else if (winner.every((element) => element === 'Y')) {
+                weHaveAWinner = playerTwoName;
+                yellowScore++;
+                noMoreClicks();
+                displayMessage(`${weHaveAWinner} has won this round!`);
+                allButtons[3].classList.remove('hidden');
                 break;
             }
         }
     }
 };
 
+const checkForTie = () => {
+    if (movesLeft === 0) {
+        displayMessage('Intense Game, You both tied.');
+        allButtons[3].classList.remove('hidden');
+        console.log(allButtons[3].classList);
+    }
+};
+
+const next = () => {
+    if (currentPlayer === playerOneName) {
+        currentPlayer = playerTwoName;
+        displayMessage(`${playerTwoName}, your turn!`);
+        checkForWinner();
+        movesLeft--;
+        console.log(movesLeft);
+    } else {
+        currentPlayer = playerOneName;
+        displayMessage(`${playerOneName}, your turn!`);
+        checkForWinner();
+        movesLeft--;
+        console.log(movesLeft);
+    }
+};
+
 //!----------------------------------------
-
-//diagnal wins 
-
+//build functions & test
 
 //!----------------------------------------
 
@@ -294,5 +409,3 @@ domBoard.forEach((column) => {
 });
 
 //------------------------ GAME CODE ------------------------
-
-//game code

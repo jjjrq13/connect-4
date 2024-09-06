@@ -142,6 +142,7 @@ p {
 
 .display-and-board {
     flex-direction: row;
+    justify-content: space-around;
 }
 
 #game-player-display {
@@ -157,6 +158,9 @@ p {
     padding: 3.236%;
     justify-content: space-evenly;
     background-color: #5d2d25;
+    max-width: 125px;
+    height: auto;
+    margin: 10%;
 }
 
 .player-game-display > div {
@@ -207,7 +211,7 @@ p {
     margin-bottom: 3.236%;
     border-radius: 8px;
     padding-left: 4.854%;
-    min-width: 700px;
+    /* min-width: 700px; */
 }
 
 #above-board img {
@@ -221,6 +225,8 @@ p {
     color: #ece2d0;
     font-weight: bolder;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* *-------------------------- BOARD -------------------------- */
@@ -266,10 +272,10 @@ p {
 } */
 
 /* !-------------------------- IMPORTANT -------------------------- */
-/* 
+
 .hidden {
     display:none !important;
-} */
+}
 
 .preventClick {
     pointer-events: none;
